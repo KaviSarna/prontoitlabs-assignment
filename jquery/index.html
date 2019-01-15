@@ -1,0 +1,65 @@
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <h2>Login</h2>
+        <div id="LoginForm">
+            <form id="login" action="#">
+                <label>Username</label>
+                <input type="text" id="userName" />
+                <br>
+                <label>Password</label>
+                <input type="password" id="password" />
+                <br>
+                <input id="submit" type="submit" value="Login" ></input>
+            </form>
+        </div>
+        <script>
+            
+            $("#submit").click(function() {
+                var name = $("#userName").val();
+                var password = $("#password").val();
+                
+                $("#login").submit(function(event) {
+                    // $.post("http://localhost:8080/api/v1/user/login", {userName: name, password: password},function(data) {
+                    //     console.log(data)
+                    // }, "jsonp");
+                    // $.ajax({
+                    //     type: "POST",
+                    //     contentType: "application/json; charset=utf-8",
+                    //     url: "http://localhost:8080/api/v1/user/login",
+                    //     data: {userName: name, password: password},
+                    //     success: function(data) {
+                    //         console.log(data)
+                    //     },
+                    //     error: function(data) {
+                    //         console.log(data)
+                    //     },
+                    //     dataType: "json"
+                    // });
+                    var settings = {
+                        "async": true,
+                        "crossDomain": true,
+                        "url": "http://localhost:8080/api/v1/user/login",
+                        "method": "POST",
+                        "headers": {
+                            "content-type": "application/json",
+                            "cache-control": "no-cache"
+                        },
+                        "processData": false,
+                        "data": JSON.stringify({userName: name, password: password})
+                    }
+                    $.ajax(settings).done(function (response) {
+                        console.log(response);
+                    });
+                }); // Form submission.
+                console.log(" Name : " + name + " n Email : " + password + " n Form id : " 
+                    + $("#form_id").attr('id') + "nn Form Submitted Successfully......");
+            });
+        </script>    
+    </body>
+
+</html>
+
+
